@@ -10,7 +10,7 @@
 - The repository root is the wiki root; no database, service, or build system exists.
 - `SCHEMA.md` is the operational contract. `README.md` covers optional tool setup
   but describes a generic PARA layout that is not the current repository structure.
-- Current curated state: 13 raw Markdown records and 8 canonical pages.
+- Current curated state: 6 raw paper records (local only) and 7 canonical pages.
 
 ## START HERE
 
@@ -24,7 +24,7 @@
 ```text
 ./
 ├── inbox/                 # Temporary intake; neither evidence nor canonical
-├── raw/
+├── raw/                   # Gitignored except .gitkeep: source text stays local
 │   ├── articles/          # Immutable captured article Markdown
 │   ├── notebooklm/        # Immutable NotebookLM-imported source records
 │   ├── papers/            # Immutable captured paper Markdown (Zotero metadata + full text)
@@ -41,6 +41,8 @@
 │   ├── architecture/      # Narrative architecture plus rendered exports
 │   ├── tech-stack/        # Editable and rendered technology-stack diagram
 │   └── workflow/          # Editable and rendered workflow diagram
+├── scripts/
+│   └── validate_raw.py    # Raw-record integrity checker; run after every ingest
 ├── SCHEMA.md              # Authoritative content and integrity contract
 ├── index.md               # Complete active canonical catalog
 └── log.md                 # Append-only wiki operation history
@@ -70,7 +72,7 @@ knowledge-graph state, never canonical evidence.
 - Canonical frontmatter starts at byte zero and contains `title`, `created`,
   `updated`, `type`, `tags`, `sources`, `confidence`, `contested`, and `contradictions`.
 - Preserve `created`; bump `updated` whenever content or metadata changes.
-- Register tags in the `SCHEMA.md` taxonomy before use; 9 tags currently exist.
+- Register tags in the `SCHEMA.md` taxonomy before use; 14 tags currently exist.
 - Use `confidence: high` only when multiple sources support the content.
 - When `contested` is true, record dated, sourced unresolved positions in the body;
   `contradictions` lists conflicting canonical slugs or is empty.
@@ -116,8 +118,20 @@ after 50 entries and add thematic navigation after 200 total entries.
 
 ## COMMANDS AND VALIDATION
 
-No repository-local build, test, lint, CI, release, or executable checker is
-configured. Recorded lint entries are outcomes, not reproducible commands; validate
+This repository is public, and its root is the wiki root. Captured source text
+may be copyrighted, so `.gitignore` excludes everything under `raw/` except the
+`.gitkeep` placeholders. Canonical pages, `SCHEMA.md`, `index.md`, and `log.md`
+are original work and are committed. Never `git add -f` anything under `raw/`,
+and never quote long passages of a source into a canonical page.
+
+Raw records have one executable checker: `python scripts/validate_raw.py`
+(registered directory, UTF-8/LF/no BOM/final LF, byte-zero frontmatter, `sha256`,
+required paper fields, and title/DOI against the Zotero local API when Zotero is
+running). Run it after every `ingest`, fix or report each `FAIL` before compiling
+canonical pages, and record the outcome as a `lint` entry in `log.md`. A Zotero
+`WARN` means the cross-check was skipped; rerun with Zotero open.
+
+No build, test, CI, or checker exists for canonical pages. Validate the rest of
 the contract directly:
 
 - UTF-8, LF, no BOM, final newline, and correct leading frontmatter; documented

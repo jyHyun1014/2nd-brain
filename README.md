@@ -148,7 +148,7 @@ Before adding knowledge, read [SCHEMA.md](SCHEMA.md), check [index.md](index.md)
 
 1. **Temporary intake**: Put unclassified notes and links in `inbox/`.
 2. **Source capture**: Store provenance metadata and the captured body under the appropriate `raw/` subdirectory. For supported records, fix integrity with a SHA-256 digest computed from the body bytes.
-3. **Validation**: Verify the real source path, required metadata, hash, and file format. Do not arbitrarily rename importer-preserved filenames or relative paths.
+3. **Validation**: Verify the real source path, required metadata, hash, and file format. Do not arbitrarily rename importer-preserved filenames or relative paths. Run `python scripts/validate_raw.py` after every capture.
 4. **Knowledge compilation**: Create or update canonical knowledge under `entities/`, `concepts/`, `comparisons/`, or `queries/`, depending on the subject.
 5. **Record provenance and connections**: Add real `raw/*.md` paths to `sources`, use `^[raw/...md]` markers where claims need precise attribution, and connect related canonical knowledge with `[[wikilinks]]`.
 6. **Synchronize metadata**: Update `index.md` and append one operation entry to `log.md` as part of the same canonical change.

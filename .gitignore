@@ -43,11 +43,10 @@ cookies*.json
 .obsidian/snippets/
 .trash/
 
-# Copied attachments; retain only repository placeholders
-raw/papers/files/*
-!raw/papers/files/.gitkeep
-raw/assets/*
-!raw/assets/.gitkeep
+# Captured sources and attachments may be copyrighted: keep only placeholders public
+/raw/**
+!/raw/**/
+!/raw/**/.gitkeep
 
 # NotebookLM, Understand Anything, and other generated output
 output/

@@ -73,10 +73,15 @@ a valid source record or canonical page.
 - `comparison`: explicit side-by-side analysis of tools or methods.
 - `knowledge-base`: durable, structured knowledge systems.
 - `knowledge-graph`: graph-derived relationship analysis.
+- `llm`: large language models and their behavior.
+- `nlp`: natural language processing tasks, models, and benchmarks.
 - `notebooklm`: source-scoped NotebookLM workflows.
 - `pkm`: personal knowledge management.
+- `pretraining`: pre-training objectives and transfer to downstream tasks.
+- `prompting`: steering models through prompt text without weight updates.
 - `provenance`: source traceability and claim lineage.
 - `research`: research collection, synthesis, and verification.
+- `retrieval`: retrieving external documents to ground model outputs.
 - `workflow`: ordered operational processes and feedback loops.
 
 ## Raw source integrity
