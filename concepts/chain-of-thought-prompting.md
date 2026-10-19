@@ -1,7 +1,7 @@
 ---
 title: "Chain-of-Thought Prompting"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["llm", "prompting"]
 sources: ["raw/papers/wei-2023-chain-of-thought-prompting-elicits.md"]
@@ -44,3 +44,21 @@ Few-shot 프롬프트의 예시에 **최종 답만이 아니라 중간 추론 �
 ## 근거 수준
 
 이 방법 자체는 Wei 논문 한 편에 근거하므로 `confidence: medium`이다.
+
+## 열린 질문
+
+논문이 직접 밝힌 한계는 다음과 같다.^[raw/papers/wei-2023-chain-of-thought-prompting-elicits.md]
+
+- 사람의 사고 과정을 흉내 내지만, 신경망이 실제로 "추론"을 하는지는 답하지 않고
+  열린 질문으로 남긴다.
+- 추론 과정이 맞다는 보장이 없어 맞는 답과 틀린 답이 모두 나올 수 있다.
+- 큰 모델에서만 효과가 나타나 실제 서비스 비용이 크다. 작은 모델에서 추론을
+  끌어내는 방법은 후속 연구 과제다.
+- few-shot에서는 예시에 추론을 직접 적는 비용이 작지만, fine-tuning용 데이터를
+  만들 때는 이 비용이 커질 수 있다.
+
+## 관련 개념
+
+- [[in-context-learning]] — 기준이 되는 standard few-shot prompting
+- [[language-model-scaling]] — 효과가 나타나는 모델 크기
+- [[fine-tuning-vs-in-context-learning]] — 프롬프트만으로 fine-tuning을 넘은 사례

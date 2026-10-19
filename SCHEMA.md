@@ -99,6 +99,16 @@ than source drift. Do not add frontmatter merely to normalize a legacy capture.
 A trusted legacy copy may also retain its original missing final LF. Treat that as
 a documented format gap, not permission to alter the immutable raw bytes.
 
+A Zotero paper record under `raw/papers/` follows the mentor `llm-wiki` skill's
+Zotero schema. Its frontmatter requires `source_type: zotero`, `zotero_item_key`
+(the bibliographic parent, never an attachment or note), `item_type`, `title`, a
+non-empty `authors` list, `published`, `doi` or `url`, `ingested`,
+`metadata_status`, and `sha256`. Capture every other available Zotero field
+(attachment keys, citation key, publisher, archive ID, tags, collections) and
+omit unavailable ones. The body starts with `# <title>`, `## Zotero Metadata`, and
+`## Abstract`, then `## Extracted Text`. `metadata_status: incomplete` plus
+`metadata_missing` marks a record whose required fields could not be filled.
+
 Only these raw-record mutations are allowed:
 
 1. **Zotero metadata repair:** replace raw frontmatter and the readable Zotero

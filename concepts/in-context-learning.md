@@ -1,7 +1,7 @@
 ---
 title: "In-Context Learning"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["llm", "prompting"]
 sources: ["raw/papers/brown-2020-language-models-are-few-shot.md", "raw/papers/wei-2023-chain-of-thought-prompting-elicits.md"]
@@ -45,3 +45,17 @@ few-shot prompting"을 쓴다. 입력-출력 쌍을 in-context 예시로 주고 
 ## 기반 구조
 
 GPT-3는 GPT-2와 같은 [[transformer]] 기반 자기회귀 언어 모델이다.^[raw/papers/brown-2020-language-models-are-few-shot.md]
+
+## 열린 질문과 논쟁
+
+- GPT-3 논문은 few-shot 학습이 추론 시점에 새 과제를 "처음부터" 배우는 것인지,
+  사전학습 때 본 과제를 알아보는 것뿐인지 분명하지 않다고 스스로 한계로 든다.
+  "meta-learning"이라는 용어도 두 가능성을 모두 포함하도록 일부러 넓게 정의했다.^[raw/papers/brown-2020-language-models-are-few-shot.md]
+- GPT-3 규모의 모델은 추론 비용이 크고 다루기 불편해 실제 활용이 어렵다고 밝힌다.^[raw/papers/brown-2020-language-models-are-few-shot.md]
+
+## 관련 개념
+
+- [[chain-of-thought-prompting]] — few-shot 예시에 추론 단계를 더한 확장
+- [[language-model-scaling]] — 모델 크기와 in-context learning 능력의 관계
+- [[fine-tuning-vs-in-context-learning]] — 가중치를 갱신하는 방식과의 비교
+- [[transformer]] — GPT-3의 기반 구조

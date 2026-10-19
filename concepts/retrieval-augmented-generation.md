@@ -1,7 +1,7 @@
 ---
 title: "Retrieval-Augmented Generation"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["nlp", "retrieval"]
 sources: ["raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md"]
@@ -55,3 +55,18 @@ RAG는 지식을 프롬프트가 아니라 검색 결과로 공급하고, 모델
 ## 근거 수준
 
 Lewis 논문 한 편에 근거하므로 `confidence: medium`이다.
+
+## 열린 질문
+
+- **검색 붕괴(retrieval collapse):** 이야기 생성 같은 일부 과제에서는 검색기가
+  입력과 상관없이 같은 문서만 가져오도록 학습되고, 그러면 생성기가 문서를 무시해
+  BART와 같은 성능이 된다. 논문은 원인을 사실 지식이 덜 필요한 과제이거나 출력이
+  길어 검색기 학습 신호가 약하기 때문일 수 있다고 추정만 한다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+- **지식 갱신:** 논문은 검색 index만 바꿔 끼우면(hot-swap) 재학습 없이 지식을
+  갱신할 수 있다고 보였다. 다만 이 위키의 원본은 Wikipedia index 실험 하나뿐이다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+
+## 관련 개념
+
+- [[transformer]] — 생성기 BART의 구조
+- [[masked-language-modeling]] — 검색기 encoder로 쓰인 BERT의 사전학습
+- [[fine-tuning-vs-in-context-learning]] — 모델 일부를 fine-tuning하는 위치

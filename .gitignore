@@ -48,6 +48,9 @@ cookies*.json
 !/raw/**/
 !/raw/**/.gitkeep
 
+# Mentor llm-wiki skill (ains-lab/harness has no license): installed locally, not redistributed
+/.claude/skills/llm-wiki/
+
 # NotebookLM, Understand Anything, and other generated output
 output/
 .ua/

@@ -115,3 +115,56 @@ reports 0 issues.
   - SCHEMA.md
   - index.md
   - log.md
+
+## [2026-10-19] update | Align concept pages with the llm-wiki skill
+
+Installed the mentor `llm-wiki` skill under `.claude/skills/llm-wiki/`
+(gitignored: `ains-lab/harness` has no license, so it is not redistributed).
+Following its concept-page structure, each concept page gained an open-questions
+section built only from limitations its source papers state, plus a
+related-concepts list. Lint now also checks inbound links: 7 pages, 24 outbound
+links, at least 2 inbound per page, 0 issues. The Zotero metadata backfill of
+the raw paper records is pending because Zotero was not running.
+
+- Updated:
+  - concepts/chain-of-thought-prompting.md
+  - concepts/in-context-learning.md
+  - concepts/language-model-scaling.md
+  - concepts/masked-language-modeling.md
+  - concepts/retrieval-augmented-generation.md
+  - concepts/transformer.md
+  - .gitignore
+  - log.md
+
+## [2026-10-19] repair | Zotero metadata backfill to the llm-wiki schema
+
+Backfilled the six paper records to the `llm-wiki` Zotero schema using the
+Zotero local API: parent item metadata, BibTeX citation key, and children
+(attachment keys only; the child note was not ingested). Only the frontmatter and
+the readable block before `## Extracted Text` changed. Every extracted-text
+suffix is byte-identical to its pre-backfill copy, and `sha256` was recomputed
+over the new body. Paths were kept, as the skill's backfill rules require, so
+no canonical `sources` changed. All six records are `metadata_status: complete`.
+`SCHEMA.md` now states the Zotero record fields, `scripts/validate_raw.py`
+checks them, and the Transformer page's note now names the renamed `published`
+field.
+
+- Updated (local only, gitignored):
+  - raw/papers/brown-2020-language-models-are-few-shot.md
+  - raw/papers/devlin-2019-bert-pre-training-of-deep.md
+  - raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md
+  - raw/papers/redmon-2016-you-only-look-once-unified.md
+  - raw/papers/vaswani-2023-attention-is-all-you-need.md
+  - raw/papers/wei-2023-chain-of-thought-prompting-elicits.md
+- Updated:
+  - SCHEMA.md
+  - concepts/transformer.md
+  - scripts/validate_raw.py
+  - log.md
+
+## [2026-10-19] lint | 0 issues found
+
+- Raw: 6 of 6 Zotero records pass `scripts/validate_raw.py`, including required
+  fields, parent-key check, duplicate-key check, and title/DOI against Zotero.
+- Canonical: 7 pages, 24 outbound links, at least 2 inbound links per page,
+  0 orphans, 0 broken links, index matches the filesystem.

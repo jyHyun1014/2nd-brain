@@ -1,7 +1,7 @@
 ---
 title: "Transformer"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["nlp", "llm"]
 sources: ["raw/papers/vaswani-2023-attention-is-all-you-need.md", "raw/papers/devlin-2019-bert-pre-training-of-deep.md", "raw/papers/brown-2020-language-models-are-few-shot.md", "raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md"]
@@ -44,5 +44,18 @@ sequence transduction 아키텍처다. 원 논문은 이를 "self-attention에 �
 
 ## 메모
 
-- Vaswani 레코드의 `year: 2023`은 Zotero에 저장된 arXiv 최신 버전 날짜다.
+- Vaswani 레코드의 `published: 2023-08-02`는 Zotero에 저장된 arXiv 최신 버전 날짜다.
   BERT 논문은 이 논문을 "Vaswani et al.(2017)"로 인용한다.^[raw/papers/devlin-2019-bert-pre-training-of-deep.md]
+
+## 열린 질문
+
+- 원 논문은 Transformer를 텍스트 외의 입력·출력(이미지, 오디오, 비디오)으로 넓히고,
+  큰 입력을 효율적으로 다루기 위한 국소적·제한된 attention을 연구하겠다고 밝힌다.
+  이 위키에는 아직 그 후속 연구를 다룬 원본이 없다.^[raw/papers/vaswani-2023-attention-is-all-you-need.md]
+
+## 관련 개념
+
+- [[masked-language-modeling]] — encoder를 양방향으로 사전학습하는 방법
+- [[in-context-learning]] — decoder 기반 대형 모델의 과제 적응 방식
+- [[language-model-scaling]] — 모델을 키웠을 때의 변화
+- [[retrieval-augmented-generation]] — encoder-decoder를 검색과 결합한 구조

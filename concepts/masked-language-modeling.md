@@ -1,7 +1,7 @@
 ---
 title: "Masked Language Modeling"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["nlp", "pretraining"]
 sources: ["raw/papers/devlin-2019-bert-pre-training-of-deep.md", "raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md"]
@@ -46,3 +46,15 @@ BERT가 제안한 방식으로, 문헌에서는 Cloze task라고도 부른다.^[
 ## 근거 수준
 
 MLM 절차 자체는 BERT 논문 한 편에 근거하므로 `confidence: medium`이다.
+
+## 열린 질문
+
+- `[MASK]` 토큰은 fine-tuning 때 나타나지 않아 사전학습과 fine-tuning 사이에
+  불일치가 생긴다. BERT는 80/10/10 치환으로 이를 줄이지만, 논문 스스로 이 방식의
+  단점으로 이 불일치를 든다.^[raw/papers/devlin-2019-bert-pre-training-of-deep.md]
+
+## 관련 개념
+
+- [[transformer]] — BERT가 쓰는 encoder 구조
+- [[fine-tuning-vs-in-context-learning]] — MLM 사전학습 뒤 fine-tuning하는 방식의 위치
+- [[retrieval-augmented-generation]] — BERT 기반 encoder를 검색기에 재사용한 예

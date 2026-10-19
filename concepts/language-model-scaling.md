@@ -1,7 +1,7 @@
 ---
 title: "Language Model Scaling"
 created: "2026-10-13"
-updated: "2026-10-13"
+updated: "2026-10-19"
 type: "concept"
 tags: ["llm"]
 sources: ["raw/papers/brown-2020-language-models-are-few-shot.md", "raw/papers/wei-2023-chain-of-thought-prompting-elicits.md"]
@@ -50,3 +50,15 @@ loss가 크기에 따라 꾸준히 좋아지는 경향을 보이고, chain-of-th
 
 두 논문이 다루는 모델은 모두 [[transformer]] 기반 언어 모델이다. GPT-3는 GPT-2와
 같은 아키텍처를 쓴다.^[raw/papers/brown-2020-language-models-are-few-shot.md]
+
+## 열린 질문
+
+- 큰 모델은 추론 비용이 커서 실제 활용이 어렵다. GPT-3 논문과 chain-of-thought
+  논문이 모두 이 점을 한계로 든다.^[raw/papers/brown-2020-language-models-are-few-shot.md]^[raw/papers/wei-2023-chain-of-thought-prompting-elicits.md]
+- GPT-3 논문은 언어 모델이 공통으로 사전학습 표본 효율이 낮다는 점도 한계로 든다.^[raw/papers/brown-2020-language-models-are-few-shot.md]
+
+## 관련 개념
+
+- [[in-context-learning]] — 크기에 따라 더 빠르게 좋아지는 능력
+- [[chain-of-thought-prompting]] — 일정 크기 이상에서만 효과가 나타나는 방법
+- [[transformer]] — 두 논문이 다루는 모델의 구조
