@@ -70,3 +70,4 @@ Lewis 논문 한 편에 근거하므로 `confidence: medium`이다.
 - [[transformer]] — 생성기 BART의 구조
 - [[masked-language-modeling]] — 검색기 encoder로 쓰인 BERT의 사전학습
 - [[fine-tuning-vs-in-context-learning]] — 모델 일부를 fine-tuning하는 위치
+- [[rag-vs-in-context-learning-knowledge-supply]] — GPT-3와 같은 QA 과제에서의 지식 공급 방식 비교

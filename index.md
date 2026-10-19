@@ -3,7 +3,7 @@
 > Complete catalog of active canonical pages. Each entry is a wikilink followed by
 > a one-line summary, sorted alphabetically within its section.
 >
-> Total pages: 7
+> Total pages: 8
 
 ## Entities
 
@@ -21,3 +21,5 @@
 - [[fine-tuning-vs-in-context-learning]] — 가중치를 갱신하는 BERT식 적응과 프롬프트만 쓰는 GPT-3식 적응 비교
 
 ## Queries
+
+- [[rag-vs-in-context-learning-knowledge-supply]] — RAG는 외부 index, GPT-3는 파라미터로 지식을 공급하는 방식과 같은 QA 과제 결과 비교

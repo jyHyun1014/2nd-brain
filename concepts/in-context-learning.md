@@ -59,3 +59,4 @@ GPT-3는 GPT-2와 같은 [[transformer]] 기반 자기회귀 언어 모델이다
 - [[language-model-scaling]] — 모델 크기와 in-context learning 능력의 관계
 - [[fine-tuning-vs-in-context-learning]] — 가중치를 갱신하는 방식과의 비교
 - [[transformer]] — GPT-3의 기반 구조
+- [[rag-vs-in-context-learning-knowledge-supply]] — 검색 없이 파라미터 지식만 쓰는 closed-book QA와 RAG 비교

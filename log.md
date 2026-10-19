@@ -168,3 +168,40 @@ field.
   fields, parent-key check, duplicate-key check, and title/DOI against Zotero.
 - Canonical: 7 pages, 24 outbound links, at least 2 inbound links per page,
   0 orphans, 0 broken links, index matches the filesystem.
+
+## [2026-10-19] query | How RAG and in-context learning supply knowledge
+
+Question: how do RAG and in-context learning supply factual knowledge, and how
+do they compare on the same tasks? Answered from the RAG, in-context-learning,
+and fine-tuning comparison pages, then checked against the papers. The GPT-3
+paper's closed-book QA section places RAG and GPT-3 on the same open-domain QA
+benchmarks, which the existing pages did not yet cover. Filed as a query page
+because that cross-paper comparison would be painful to re-derive. The RAG and
+in-context-learning pages now link to it.
+
+- Created:
+  - queries/rag-vs-in-context-learning-knowledge-supply.md
+- Updated:
+  - concepts/in-context-learning.md
+  - concepts/retrieval-augmented-generation.md
+  - index.md
+  - log.md
+
+## [2026-10-19] query | NotebookLM cross-check of RAG vs GPT-3 open-domain QA
+
+Created the NotebookLM notebook "LLM 기초" (`8bb21020-1405-4bdd-b9e2-4f04f6a45cba`)
+with `notebooklm-py` 0.8.5. Its sources are the five NLP paper records, each
+titled with its local path so cited source IDs map back to raw records. One
+question (conversation `59f5970d-1fe4-4b72-8e3c-f44077d3c093`) cited only
+`raw/papers/brown-2020-language-models-are-few-shot.md` and
+`raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md`.
+
+- Adopted after checking RAG Table 1: TriviaQA has a standard test split
+  (RAG-Sequence 56.8) and a Wiki split (68.0). GPT-3's comparison uses the Wiki
+  split, and RAG reports a TriviaQA state of the art only on that split. GPT-3's
+  RAG row takes the better of RAG-Sequence and RAG-Token per dataset.
+- Not adopted: the answer's claim that trivia knowledge is "densely distributed"
+  in GPT-3's pre-training corpus. Neither paper states it.
+- Updated:
+  - queries/rag-vs-in-context-learning-knowledge-supply.md
+  - log.md
