@@ -1,0 +1,12 @@
+{
+  "zotero_collection": "2nd-brain",
+  "keywords": [
+    "large language model",
+    "retrieval-augmented generation",
+    "chain-of-thought reasoning",
+    "LLM agent",
+    "vision transformer"
+  ],
+  "max_candidates": 5,
+  "arxiv_slots": 1
+}

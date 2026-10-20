@@ -42,6 +42,8 @@
 │   ├── tech-stack/        # Editable and rendered technology-stack diagram
 │   └── workflow/          # Editable and rendered workflow diagram
 ├── scripts/
+│   ├── collect_evidence.py  # Gate A: Zotero collection -> raw/papers/, validate, inbox candidates
+│   ├── collect_config.json  # Collection name, search keywords, candidate limits
 │   └── validate_raw.py    # Raw-record integrity checker; run after every ingest
 ├── SCHEMA.md              # Authoritative content and integrity contract
 ├── index.md               # Complete active canonical catalog
@@ -130,6 +132,15 @@ required paper fields, and title/DOI against the Zotero local API when Zotero is
 running). Run it after every `ingest`, fix or report each `FAIL` before compiling
 canonical pages, and record the outcome as a `lint` entry in `log.md`. A Zotero
 `WARN` means the cross-check was skipped; rerun with Zotero open.
+
+`python scripts/collect_evidence.py` is the Gate A collector (Hermes cron runs it
+daily, script-only). It captures new parent items of the Zotero `2nd-brain`
+collection into `raw/papers/` (PDF `.zotero-ft-cache` text, never overwriting an
+existing record), runs `validate_raw.py`, appends `ingest`/`lint` log entries
+when it captured something, and writes Semantic Scholar (most cited) and arXiv
+(newest) candidates to gitignored `inbox/candidates-*.md`. Candidates are not
+evidence: the user adds chosen papers to the Zotero collection. Exit 1 means a
+Zotero or validation failure; `WARN` lines are candidate-search failures only.
 
 No build, test, CI, or checker exists for canonical pages. Validate the rest of
 the contract directly:

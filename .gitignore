@@ -95,3 +95,7 @@ tmp/
 *~
 .DS_Store
 Thumbs.db
+
+# Collection candidate lists are temporary intake, not wiki content
+/inbox/*
+!/inbox/.gitkeep

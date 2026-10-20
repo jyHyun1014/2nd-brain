@@ -205,3 +205,27 @@ question (conversation `59f5970d-1fe4-4b72-8e3c-f44077d3c093`) cited only
 - Updated:
   - queries/rag-vs-in-context-learning-knowledge-supply.md
   - log.md
+
+## [2026-10-20] repair | Rename paper records to the llm-wiki naming rule
+
+Renamed the six raw paper records to the skill's `raw/papers/YYYY-MM-title-slug.md`
+rule (Zotero `published` year-month plus the full title slug) at the user's request.
+File bytes are unchanged, so every `sha256` still matches. Earlier log entries keep
+the old paths as history; the mapping is:
+
+- raw/papers/brown-2020-language-models-are-few-shot.md -> raw/papers/2020-07-language-models-are-few-shot-learners.md
+- raw/papers/devlin-2019-bert-pre-training-of-deep.md -> raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md
+- raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md -> raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md
+- raw/papers/redmon-2016-you-only-look-once-unified.md -> raw/papers/2016-05-you-only-look-once-unified-real-time-object-detection.md
+- raw/papers/vaswani-2023-attention-is-all-you-need.md -> raw/papers/2023-08-attention-is-all-you-need.md
+- raw/papers/wei-2023-chain-of-thought-prompting-elicits.md -> raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md
+- Updated `sources` and provenance markers:
+  - comparisons/fine-tuning-vs-in-context-learning.md
+  - concepts/chain-of-thought-prompting.md
+  - concepts/in-context-learning.md
+  - concepts/language-model-scaling.md
+  - concepts/masked-language-modeling.md
+  - concepts/retrieval-augmented-generation.md
+  - concepts/transformer.md
+  - queries/rag-vs-in-context-learning-knowledge-supply.md
+  - log.md

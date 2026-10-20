@@ -108,6 +108,8 @@ non-empty `authors` list, `published`, `doi` or `url`, `ingested`,
 omit unavailable ones. The body starts with `# <title>`, `## Zotero Metadata`, and
 `## Abstract`, then `## Extracted Text`. `metadata_status: incomplete` plus
 `metadata_missing` marks a record whose required fields could not be filled.
+Name a new Zotero record `raw/papers/YYYY-MM-title-slug.md`: the most precise
+publication year and month from Zotero, then the full lowercase kebab-case title.
 
 Only these raw-record mutations are allowed:
 

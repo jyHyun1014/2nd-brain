@@ -1,10 +1,10 @@
 ---
 title: "Retrieval-Augmented Generation"
 created: "2026-10-13"
-updated: "2026-10-19"
+updated: "2026-10-20"
 type: "concept"
 tags: ["nlp", "retrieval"]
-sources: ["raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md"]
+sources: ["raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -12,14 +12,14 @@ contradictions: []
 # Retrieval-Augmented Generation (RAG)
 
 사전학습된 생성 모델(parametric memory)에 외부 문서 검색(non-parametric memory)을
-결합해, 검색한 문서를 근거로 답을 생성하는 방법이다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+결합해, 검색한 문서를 근거로 답을 생성하는 방법이다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 해결하려는 문제
 
 큰 사전학습 언어 모델은 파라미터 안에 사실 지식을 저장하지만, 그 지식에 정확히
 접근하고 다루는 능력은 제한적이다. 그래서 지식 집약적 과제에서는 과제 전용
 구조보다 뒤처진다. 또 답의 출처를 제시하거나 지식을 갱신하는 일도 풀리지 않은
-문제로 남아 있다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+문제로 남아 있다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 구성
 
@@ -30,21 +30,21 @@ contradictions: []
 - **Generator (parametric memory):** BART-large, 즉 400M 파라미터의 사전학습된
   seq2seq [[transformer]]다. 입력과 검색된 문서를 이어 붙여 생성한다.
 - **학습:** document encoder와 index는 고정하고, query encoder와 BART generator만
-  fine-tuning한다. 논문은 document encoder까지 갱신하지 않아도 성능이 좋았다고 보고한다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+  fine-tuning한다. 논문은 document encoder까지 갱신하지 않아도 성능이 좋았다고 보고한다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 두 가지 변형
 
 - **RAG-Sequence:** 검색한 같은 문서 하나로 전체 출력 시퀀스를 생성하고, 상위 K개
   문서에 대해 확률을 합산(marginalize)한다.
 - **RAG-Token:** 출력 토큰마다 다른 문서를 쓸 수 있어, 여러 문서의 내용을 섞어
-  답을 만들 수 있다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+  답을 만들 수 있다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 결과
 
 - 세 개의 open-domain QA 과제에서 당시 최고 성능을 냈고, parametric-only seq2seq
   모델과 과제 전용 retrieve-and-extract 구조를 모두 앞섰다.
 - 생성 과제에서는 parametric-only 기준선보다 더 구체적이고 다양하며 사실에 맞는
-  문장을 생성했다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+  문장을 생성했다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 다른 접근과의 관계
 
@@ -61,9 +61,9 @@ Lewis 논문 한 편에 근거하므로 `confidence: medium`이다.
 - **검색 붕괴(retrieval collapse):** 이야기 생성 같은 일부 과제에서는 검색기가
   입력과 상관없이 같은 문서만 가져오도록 학습되고, 그러면 생성기가 문서를 무시해
   BART와 같은 성능이 된다. 논문은 원인을 사실 지식이 덜 필요한 과제이거나 출력이
-  길어 검색기 학습 신호가 약하기 때문일 수 있다고 추정만 한다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+  길어 검색기 학습 신호가 약하기 때문일 수 있다고 추정만 한다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 - **지식 갱신:** 논문은 검색 index만 바꿔 끼우면(hot-swap) 재학습 없이 지식을
-  갱신할 수 있다고 보였다. 다만 이 위키의 원본은 Wikipedia index 실험 하나뿐이다.^[raw/papers/lewis-2021-retrieval-augmented-generation-for-knowledge.md]
+  갱신할 수 있다고 보였다. 다만 이 위키의 원본은 Wikipedia index 실험 하나뿐이다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
 ## 관련 개념
 
