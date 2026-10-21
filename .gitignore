@@ -99,3 +99,6 @@ Thumbs.db
 # Collection candidate lists are temporary intake, not wiki content
 /inbox/*
 !/inbox/.gitkeep
+
+# Hermes project-local copy of the mentor llm-wiki skill: local only, not redistributed
+/.hermes/
