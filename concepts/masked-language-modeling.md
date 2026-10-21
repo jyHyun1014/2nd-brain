@@ -1,10 +1,10 @@
 ---
 title: "Masked Language Modeling"
 created: "2026-10-13"
-updated: "2026-10-20"
+updated: "2026-10-21"
 type: "concept"
 tags: ["nlp", "pretraining"]
-sources: ["raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md"]
+sources: ["raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md", "raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -47,6 +47,11 @@ BERT가 제안한 방식으로, 문헌에서는 Cloze task라고도 부른다.^[
 
 MLM 절차 자체는 BERT 논문 한 편에 근거하므로 `confidence: medium`이다.
 
+## 이미지로의 응용
+
+Vision Transformer 논문은 이 목표를 본떠 마스크된 이미지 패치를 예측하는 자기지도
+사전학습을 예비 실험했다. 자세한 결과는 [[vision-transformer]]에 있다.^[raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md]
+
 ## 열린 질문
 
 - `[MASK]` 토큰은 fine-tuning 때 나타나지 않아 사전학습과 fine-tuning 사이에
@@ -58,3 +63,4 @@ MLM 절차 자체는 BERT 논문 한 편에 근거하므로 `confidence: medium`
 - [[transformer]] — BERT가 쓰는 encoder 구조
 - [[fine-tuning-vs-in-context-learning]] — MLM 사전학습 뒤 fine-tuning하는 방식의 위치
 - [[retrieval-augmented-generation]] — BERT 기반 encoder를 검색기에 재사용한 예
+- [[vision-transformer]] — 마스크 예측을 이미지 패치에 적용한 예비 실험

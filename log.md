@@ -229,3 +229,36 @@ the old paths as history; the mapping is:
   - concepts/transformer.md
   - queries/rag-vs-in-context-learning-knowledge-supply.md
   - log.md
+
+## [2026-10-21] ingest | Zotero collection 2nd-brain (1 records)
+
+Captured by `scripts/collect_evidence.py`: Zotero local API metadata plus the PDF
+attachment's `.zotero-ft-cache` text. `sha256` covers the exact post-frontmatter body.
+
+- raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md
+
+## [2026-10-21] lint | Raw paper records
+
+`python scripts/validate_raw.py`: 0 failing record(s).
+
+## [2026-10-21] create | Vision Transformer (compile of 1 raw record)
+
+Compiled `raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md`. Created one concept page and linked it from
+related pages. Validate/lint result for canonical pages is clean (links, tags,
+sources/markers, index count).
+
+- Created:
+  - concepts/vision-transformer.md
+- Updated:
+  - concepts/transformer.md
+  - concepts/masked-language-modeling.md
+  - index.md
+  - log.md
+
+## [2026-10-21] lint | Compile deferred: 1 raw records
+
+- `raw/papers/2016-05-you-only-look-once-unified-real-time-object-detection.md`: YOLO is a single-source subject (object detection with a CNN) and no
+  registered tag in `SCHEMA.md` covers computer vision. The only existing canonical
+  link target is the [[vision-transformer]] page, which mentions detection merely as a
+  future challenge, so a page would be isolated or force-linked. Revisit when a second
+  vision or detection source or a registered tag exists.

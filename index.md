@@ -3,7 +3,7 @@
 > Complete catalog of active canonical pages. Each entry is a wikilink followed by
 > a one-line summary, sorted alphabetically within its section.
 >
-> Total pages: 8
+> Total pages: 9
 
 ## Entities
 
@@ -15,6 +15,7 @@
 - [[masked-language-modeling]] — 토큰 15%를 가리고 맞히는 BERT의 양방향 사전학습 목표
 - [[retrieval-augmented-generation]] — 검색한 Wikipedia 문서를 근거로 생성하는 RAG 구조
 - [[transformer]] — attention만으로 표현을 계산하는 아키텍처와 encoder·decoder 활용 방식
+- [[vision-transformer]] — 이미지를 패치 시퀀스로 바꿔 Transformer encoder에 넣는 이미지 분류 모델
 
 ## Comparisons
 

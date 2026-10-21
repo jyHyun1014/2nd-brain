@@ -1,10 +1,10 @@
 ---
 title: "Transformer"
 created: "2026-10-13"
-updated: "2026-10-20"
+updated: "2026-10-21"
 type: "concept"
 tags: ["nlp", "llm"]
-sources: ["raw/papers/2023-08-attention-is-all-you-need.md", "raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2020-07-language-models-are-few-shot-learners.md", "raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md"]
+sources: ["raw/papers/2023-08-attention-is-all-you-need.md", "raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2020-07-language-models-are-few-shot-learners.md", "raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md", "raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md"]
 confidence: "high"
 contested: false
 contradictions: []
@@ -42,6 +42,10 @@ sequence transduction 아키텍처다. 원 논문은 이를 "self-attention에 �
   사전학습된 seq2seq Transformer이고, retriever의 query·document encoder는
   BERT-base 기반이다. 자세한 내용은 [[retrieval-augmented-generation]]에 있다.^[raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md]
 
+- **이미지 입력으로 확장:** Vision Transformer는 이미지를 패치 시퀀스로 바꿔 원
+  Transformer encoder를 거의 수정 없이 쓴다. 자세한 내용은 [[vision-transformer]]에
+  있다.^[raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md]
+
 ## 메모
 
 - Vaswani 레코드의 `published: 2023-08-02`는 Zotero에 저장된 arXiv 최신 버전 날짜다.
@@ -50,8 +54,9 @@ sequence transduction 아키텍처다. 원 논문은 이를 "self-attention에 �
 ## 열린 질문
 
 - 원 논문은 Transformer를 텍스트 외의 입력·출력(이미지, 오디오, 비디오)으로 넓히고,
-  큰 입력을 효율적으로 다루기 위한 국소적·제한된 attention을 연구하겠다고 밝힌다.
-  이 위키에는 아직 그 후속 연구를 다룬 원본이 없다.^[raw/papers/2023-08-attention-is-all-you-need.md]
+  큰 입력을 효율적으로 다루기 위한 국소적·제한된 attention을 연구하겠다고 밝힌다.^[raw/papers/2023-08-attention-is-all-you-need.md]
+  이미지 쪽 후속 연구는 [[vision-transformer]]로 다루지만, 오디오·비디오와 국소적
+  attention을 다룬 원본은 아직 이 위키에 없다.
 
 ## 관련 개념
 
@@ -59,3 +64,4 @@ sequence transduction 아키텍처다. 원 논문은 이를 "self-attention에 �
 - [[in-context-learning]] — decoder 기반 대형 모델의 과제 적응 방식
 - [[language-model-scaling]] — 모델을 키웠을 때의 변화
 - [[retrieval-augmented-generation]] — encoder-decoder를 검색과 결합한 구조
+- [[vision-transformer]] — encoder를 이미지 패치 시퀀스에 적용한 모델
