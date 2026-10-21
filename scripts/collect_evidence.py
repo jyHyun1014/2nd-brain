@@ -151,6 +151,18 @@ def semantic_scholar(kw):
                "url": f"https://arxiv.org/abs/{arxiv}" if arxiv else p["url"],
                "note": f"인용 {p.get('citationCount') or 0:,} · Semantic Scholar"}
 
+def openalex(kw):
+    """Keyless fallback for most-cited search (about 100 searches/day free without a key)."""
+    q = urllib.parse.urlencode({"filter": f'title_and_abstract.search:"{kw}"', "sort": "cited_by_count:desc", "per_page": 25,
+                                "select": "title,publication_year,cited_by_count,ids,authorships"})
+    for w in fetch(f"https://api.openalex.org/works?{q}")["results"]:
+        doi = w["ids"].get("doi") or ""
+        arxiv_id = re.search(r"arxiv\.(\d{4}\.\d{4,5})", doi, re.I)
+        yield {"title": w["title"], "year": w.get("publication_year"),
+               "who": [a["author"]["display_name"] for a in w.get("authorships") or []],
+               "url": f"https://arxiv.org/abs/{arxiv_id[1]}" if arxiv_id else doi or w["ids"]["openalex"],
+               "note": f"인용 {w.get('cited_by_count') or 0:,} · OpenAlex"}
+
 def arxiv(kw):
     q = urllib.parse.urlencode({"search_query": f'all:"{kw}"', "sortBy": "submittedDate",
                                 "sortOrder": "descending", "max_results": 20})
@@ -163,14 +175,16 @@ def arxiv(kw):
 start = datetime.date.today().toordinal() % len(cfg["keywords"])
 keywords = cfg["keywords"][start:] + cfg["keywords"][:start]  # rotate daily so every keyword gets the first slot
 
-def pick(source, slots, pause):
+def pick(source, slots, pause, fallback=None):
     results = {}
     for kw in keywords:
-        try:
-            results[kw] = list(source(kw))
-        except (OSError, ValueError, ET.ParseError) as e:
-            warnings.append(f"{source.__name__} '{kw}' failed ({getattr(e, 'code', type(e).__name__)})")
-            results[kw] = []
+        for src in [source] + ([fallback] if fallback else []):
+            try:
+                results[kw] = list(src(kw))
+                break
+            except (OSError, ValueError, ET.ParseError) as e:
+                warnings.append(f"{src.__name__} '{kw}' failed ({getattr(e, 'code', type(e).__name__)})")
+                results[kw] = []
         time.sleep(pause)
     chosen = []
     while len(chosen) < slots and any(results.values()):
@@ -184,7 +198,7 @@ def pick(source, slots, pause):
     return chosen
 
 slots = cfg["max_candidates"]
-picked = pick(semantic_scholar, slots - cfg["arxiv_slots"], 5)
+picked = pick(semantic_scholar, slots - cfg["arxiv_slots"], 5, fallback=openalex)
 picked += pick(arxiv, slots - len(picked), 3)
 out = inbox / f"candidates-{today}.md"
 if picked:

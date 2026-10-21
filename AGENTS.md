@@ -137,8 +137,9 @@ canonical pages, and record the outcome as a `lint` entry in `log.md`. A Zotero
 daily, script-only). It captures new parent items of the Zotero `2nd-brain`
 collection into `raw/papers/` (PDF `.zotero-ft-cache` text, never overwriting an
 existing record), runs `validate_raw.py`, appends `ingest`/`lint` log entries
-when it captured something, and writes Semantic Scholar (most cited) and arXiv
-(newest) candidates to gitignored `inbox/candidates-*.md`. Candidates are not
+when it captured something, and writes Semantic Scholar (most cited; keyless
+OpenAlex fallback when it is rate-limited) and arXiv (newest) candidates to
+gitignored `inbox/candidates-*.md`. Candidates are not
 evidence: the user adds chosen papers to the Zotero collection. Exit 1 means a
 Zotero or validation failure; `WARN` lines are candidate-search failures only.
 
