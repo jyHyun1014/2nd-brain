@@ -1,10 +1,10 @@
 ---
 title: "Fine-Tuning vs In-Context Learning"
 created: "2026-10-13"
-updated: "2026-10-20"
+updated: "2026-10-22"
 type: "comparison"
 tags: ["comparison", "llm", "pretraining", "prompting"]
-sources: ["raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2020-07-language-models-are-few-shot-learners.md", "raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md"]
+sources: ["raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md", "raw/papers/2020-07-language-models-are-few-shot-learners.md", "raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md", "raw/papers/2021-10-lora-low-rank-adaptation-of-large-language-models.md"]
 confidence: "high"
 contested: false
 contradictions: []
@@ -45,6 +45,8 @@ Chain-of-thought 논문에서는 PaLM 540B에 [[chain-of-thought-prompting]] 예
 
 ## 정리
 
+- **Parameter-efficient fine-tuning:** 가중치를 갱신하되 [[lora]]처럼 저차 행렬만 학습하면 fine-tuning의
+  저장·전환 비용을 줄일 수 있다. 논문은 병합 뒤 추가 추론 지연이 없다고 주장한다.^[raw/papers/2021-10-lora-low-rank-adaptation-of-large-language-models.md]
 - **Fine-tuning:** 라벨된 데이터와 과제마다 별도의 학습이 필요하지만, BERT 크기
   (110M~340M)의 모델로도 높은 성능을 낸다.^[raw/papers/2019-05-bert-pre-training-of-deep-bidirectional-transformers-for-language-understanding.md]
 - **In-context learning:** 과제마다 학습할 필요가 없지만, 성능이 모델 크기에 크게

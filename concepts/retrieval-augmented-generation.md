@@ -1,11 +1,11 @@
 ---
 title: "Retrieval-Augmented Generation"
 created: "2026-10-13"
-updated: "2026-10-20"
+updated: "2026-10-22"
 type: "concept"
 tags: ["nlp", "retrieval"]
-sources: ["raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md"]
-confidence: "medium"
+sources: ["raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md", "raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md"]
+confidence: "high"
 contested: false
 contradictions: []
 ---
@@ -52,9 +52,35 @@ RAG는 지식을 프롬프트가 아니라 검색 결과로 공급하고, 모델
 가중치 갱신 없이 프롬프트만 쓰는 방식과의 차이는
 [[fine-tuning-vs-in-context-learning]]을 참고한다.
 
+## 이후 발전: Naive, Advanced, Modular RAG
+
+2024년 서베이는 RAG가 환각, 오래된 지식, 추적 불가능한 추론 같은 LLM의 문제를 외부 데이터베이스의
+지식으로 줄이는 방법이라고 정리하고, 연구 흐름을 세 단계로 나눈다.^[raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md]
+
+- **Naive RAG:** 색인, 검색, 생성의 "Retrieve-Read" 틀이다. 색인은 PDF, HTML 같은 다양한 형식의
+  원자료를 정제해 평문으로 바꾸고, 언어 모델의 context 제한에 맞춰 chunk로 나눠 만든다.
+- **Advanced RAG:** 검색 품질을 높이려고 검색 전·후 전략을 쓰고, 색인도 슬라이딩 윈도우, 세밀한
+  분할, 메타데이터로 다듬는다.
+- **Modular RAG:** 앞 두 방식의 사슬 구조보다 유연하다. 예컨대 Rewrite-Retrieve-Read는 LLM이
+  검색 질의를 다시 쓰는 모듈을 둔다.
+
+RAG의 개선은 추론 단계에 머물지 않고 LLM fine-tuning과 결합하는 쪽으로 넓어졌다. 서베이는 연구
+단계를 사전학습, fine-tuning, 추론으로 구분한다.^[raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md]
+이 위키에서 검색 여부를 모델이 스스로 판단하도록 학습하는 변형은 [[self-rag]]에, 검색 단위를
+그래프 요약으로 바꾼 변형은 [[graph-rag]]에 정리했다.
+
+## 평가
+
+서베이는 RAG 평가를 검색 품질과 생성 품질로 나눈다. 핵심 지표는 context relevance(검색된 context의
+정밀도), answer faithfulness(답이 context에 충실한가), answer relevance다. 능력 측면에서는
+noise robustness, negative rejection(근거가 없을 때 답을 삼가는 능력), information integration(여러
+문서의 정보를 종합), counterfactual robustness(문서 속 알려진 오류를 무시하는 능력)를 든다.
+RAGAS, ARES, TruLens 같은 도구는 LLM으로 품질 점수를 매긴다.^[raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md]
+
 ## 근거 수준
 
-Lewis 논문 한 편에 근거하므로 `confidence: medium`이다.
+Lewis 논문(원 구조)과 2024년 서베이(이후 분류와 평가)가 서로 다른 시기와 측면을 다루며
+모순되지 않으므로 `confidence: high`로 올린다.
 
 ## 열린 질문
 
@@ -71,3 +97,6 @@ Lewis 논문 한 편에 근거하므로 `confidence: medium`이다.
 - [[masked-language-modeling]] — 검색기 encoder로 쓰인 BERT의 사전학습
 - [[fine-tuning-vs-in-context-learning]] — 모델 일부를 fine-tuning하는 위치
 - [[rag-vs-in-context-learning-knowledge-supply]] — GPT-3와 같은 QA 과제에서의 지식 공급 방식 비교
+- [[self-rag]] — 검색 필요성과 근거를 모델이 스스로 판단하는 변형
+- [[graph-rag]] — 지식 그래프와 커뮤니티 요약으로 전체 질문에 답하는 변형
+- [[sglang]] — RAG 파이프라인을 포함한 다중 호출 워크로드의 실행 시스템

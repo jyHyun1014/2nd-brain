@@ -1,7 +1,7 @@
 ---
 title: "Chain-of-Thought Prompting"
 created: "2026-10-13"
-updated: "2026-10-20"
+updated: "2026-10-22"
 type: "concept"
 tags: ["llm", "prompting"]
 sources: ["raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md"]
@@ -62,3 +62,5 @@ Few-shot 프롬프트의 예시에 **최종 답만이 아니라 중간 추론 �
 - [[in-context-learning]] — 기준이 되는 standard few-shot prompting
 - [[language-model-scaling]] — 효과가 나타나는 모델 크기
 - [[fine-tuning-vs-in-context-learning]] — 프롬프트만으로 fine-tuning을 넘은 사례
+- [[self-consistency]] — 여러 추론 경로를 뽑아 다수결로 답을 고르는 후속 디코딩 방법
+- [[llm-based-agents]] — CoT를 에이전트 배포 방식으로 쓰는 맥락

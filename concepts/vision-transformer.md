@@ -1,10 +1,10 @@
 ---
 title: "Vision Transformer"
 created: "2026-10-21"
-updated: "2026-10-21"
+updated: "2026-10-22"
 type: "concept"
 tags: ["pretraining"]
-sources: ["raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md"]
+sources: ["raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md", "raw/papers/2026-10-recurrent-vision-transformers-for-event-based-spacecraft-pose-estimation-under-slow-relative-motions.md", "raw/papers/2026-10-the-explainability-illusion-must-vits-exhibit-patch-decoding-interpretability.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -56,8 +56,25 @@ BERT의 마스크 언어 모델을 본떠 마스크된 패치를 예측하는 �
 논문은 detection·segmentation 같은 다른 비전 과제, 자기지도 사전학습 방법의
 추가 탐색, 더 큰 규모로의 확장을 남은 과제로 든다.^[raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md]
 
+## 후속 연구와 해석
+
+- **계층형 변형:** [[swin-transformer]]는 이동 윈도우로 attention을 지역화해 dense prediction에
+  쓸 수 있는 계층형 백본을 만든다.
+- **시간축 확장:** 우주선 자세 추정 논문은 recurrent vision transformer(RVT)로 희소한 이벤트 카메라
+  데이터의 장기 정보를 순환 메모리에 담는다. 상대 운동이 느릴수록 이벤트 발생률이 떨어져 신호 대
+  잡음비가 낮아지는 문제를 겨냥한다. RVT 기반 히트맵 회귀기로 2D-3D 대응점을 만들고 PnP로 자세를
+  구한다. 실제 이벤트 카메라로 모은 데이터에서 프레임 단위 방법과 고정 시간 창 변형보다 정확하고
+  안정적이었다고 보고한다.^[raw/papers/2026-10-recurrent-vision-transformers-for-event-based-spacecraft-pose-estimation-under-slow-relative-motions.md]
+- **패치 토큰 해석 가능성:** ViT 분류기의 개별 패치 토큰을 디코딩하면 사람이 이해할 만한 결과가
+  나온다고 흔히 가정한다. 최근 논문은 이것이 구조의 고유한 성질이 아님을 보인다. 실제 모델 중 일부는
+  디코딩 결과가 이미지 의미와 정렬되지만(aligned), 다른 모델은 설명 맵이 뒤집혀 있거나(inverted)
+  이미지 의미와 아예 상관이 없다(unexplainable). CLIP, SigLIP 같은 대조 학습 비전-언어 모델은
+  대체로 뒤집혀 있다. 같은 구조도 조건에 따라 영역이 바뀌며, 이 성질은 가정하지 말고 모델마다
+  확인해야 한다고 결론짓는다.^[raw/papers/2026-10-the-explainability-illusion-must-vits-exhibit-patch-decoding-interpretability.md]
+
 ## 관련 개념
 
+- [[swin-transformer]] — 계층형 특징 맵과 이동 윈도우 attention으로 확장한 백본
 - [[transformer]] — ViT가 입력만 바꿔 재사용하는 원 구조
 - [[masked-language-modeling]] — 마스크된 패치 예측의 모델이 된 사전학습 목표
 - [[language-model-scaling]] — 규모에 따른 성능 향상이라는 대응 관찰

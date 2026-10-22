@@ -262,3 +262,54 @@ sources/markers, index count).
   link target is the [[vision-transformer]] page, which mentions detection merely as a
   future challenge, so a page would be isolated or force-linked. Revisit when a second
   vision or detection source or a registered tag exists.
+
+## [2026-10-22] ingest | Zotero collection 2nd-brain (13 records)
+
+Captured by `scripts/collect_evidence.py`: Zotero local API metadata plus the PDF
+attachment's `.zotero-ft-cache` text. `sha256` covers the exact post-frontmatter body.
+
+- raw/papers/2025-10-agentbench-evaluating-llms-as-agents.md
+- raw/papers/2023-03-self-consistency-improves-chain-of-thought-reasoning-in-language-models.md
+- raw/papers/2024-06-sglang-efficient-execution-of-structured-language-model-programs.md
+- raw/papers/2023-07-llama-2-open-foundation-and-fine-tuned-chat-models.md
+- raw/papers/2026-10-the-explainability-illusion-must-vits-exhibit-patch-decoding-interpretability.md
+- raw/papers/2021-08-swin-transformer-hierarchical-vision-transformer-using-shifted-windows.md
+- raw/papers/2023-09-the-rise-and-potential-of-large-language-model-based-agents-a-survey.md
+- raw/papers/2025-02-from-local-to-global-a-graph-rag-approach-to-query-focused-summarization.md
+- raw/papers/2026-10-recurrent-vision-transformers-for-event-based-spacecraft-pose-estimation-under-slow-relative-motions.md
+- raw/papers/2023-10-self-rag-learning-to-retrieve-generate-and-critique-through-self-reflection.md
+- raw/papers/2021-10-lora-low-rank-adaptation-of-large-language-models.md
+- raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md
+- raw/papers/2022-03-training-language-models-to-follow-instructions-with-human-feedback.md
+
+## [2026-10-22] lint | Raw paper records
+
+`python scripts/validate_raw.py`: 0 failing record(s).
+
+## [2026-10-22] create | Compile 13 Zotero papers into canonical pages
+
+Compiled from the 13 raw records captured in the `ingest` entry above (all cited via
+`^[raw/...]` markers). New pages (9): concepts/graph-rag.md, concepts/llm-based-agents.md,
+concepts/lora.md, concepts/reinforcement-learning-from-human-feedback.md,
+concepts/self-consistency.md, concepts/self-rag.md, concepts/sglang.md,
+concepts/swin-transformer.md, entities/llama-2.md.
+
+- Created: 9 pages (listed above).
+- Raw coverage: swin -> swin-transformer; lora -> lora; instructgpt -> reinforcement-learning-from-human-feedback;
+  self-consistency -> self-consistency; llama-2 -> llama-2; agents survey + agentbench -> llm-based-agents;
+  self-rag -> self-rag; rag survey -> retrieval-augmented-generation (update); sglang -> sglang;
+  graphrag -> graph-rag; the two 2026-10 ViT papers -> vision-transformer (update).
+
+## [2026-10-22] update | Existing pages extended with the new sources
+
+- concepts/retrieval-augmented-generation.md (RAG survey: Naive/Advanced/Modular, evaluation; confidence medium -> high)
+- concepts/vision-transformer.md (Swin link, event-based RVT, patch-decoding explainability)
+- concepts/chain-of-thought-prompting.md (links to self-consistency, llm-based-agents)
+- comparisons/fine-tuning-vs-in-context-learning.md (LoRA as parameter-efficient fine-tuning)
+- index.md (9 -> 18 active pages)
+
+## [2026-10-22] lint | Post-compile check
+
+`python scripts/validate_raw.py`: 0 failing record(s). All wikilinks in canonical pages resolve to
+active pages; index.md lists 18 pages and the filesystem holds 18; every page has at least two
+distinct outbound links and uses only registered tags.
