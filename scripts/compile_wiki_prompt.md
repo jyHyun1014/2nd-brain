@@ -40,16 +40,19 @@ in `sources` and no `log.md` heading of the form
 4. Keep `index.md` alphabetical, type-correct, and its total equal to the
    canonical file count. Append one `log.md` entry (`create` or `update`) that
    lists every affected path.
-5. Lint everything the skill's Lint section covers for canonical pages: broken
-   links, orphans, frontmatter, tags, sources/markers, index count, page size.
-   Fix every issue you introduced. Then run `python scripts/validate_raw.py` again.
+5. Run `python scripts/lint_canonical.py` and fix every issue until it prints
+   `0 issues`; also review what it cannot check (claims supported by the raw text,
+   no synonyms, sensible links). Then run `python scripts/validate_raw.py` again.
+   Write the lint result into `log.md` only after running it.
 
 ## 4. Commit and hand back
 
 1. `git add` only the changed canonical pages, `index.md`, and `log.md`. Never
    add anything under `raw/` or `inbox/`, never use `git add -f`.
 2. Commit on the branch with a message naming the compiled records.
-3. `git switch main`. Do not merge, push, or delete branches.
+3. `git switch main`, then confirm `git branch --show-current` prints `main`
+   before reporting (required: the next day's collector writes on this checkout).
+   Do not merge, push, or delete branches.
 
 ## Never
 

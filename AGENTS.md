@@ -10,7 +10,11 @@
 - The repository root is the wiki root; no database, service, or build system exists.
 - `SCHEMA.md` is the operational contract. `README.md` covers optional tool setup
   but describes a generic PARA layout that is not the current repository structure.
-- Current curated state: 6 raw paper records (local only) and 8 canonical pages.
+- Current curated state: 20 raw paper records (local only) and 18 canonical pages.
+- Daily automation (Hermes cron, this machine): `collect-evidence` at 10:00
+  (script-only, Gate A) and `compile-wiki` at 11:00 (agent with `llm-wiki`,
+  Gate B, commits to a `wiki/compile-<date>` branch that a human reviews and
+  merges). The UA knowledge graph (`.ua/`) is still generated manually.
 
 ## START HERE
 
@@ -44,6 +48,8 @@
 ├── scripts/
 │   ├── collect_evidence.py  # Gate A: Zotero collection -> raw/papers/, validate, inbox candidates
 │   ├── collect_config.json  # Collection name, search keywords, candidate limits
+│   ├── compile_wiki_prompt.md  # Gate B task the compile-wiki cron agent follows
+│   ├── lint_canonical.py  # Canonical-page and index.md checker
 │   └── validate_raw.py    # Raw-record integrity checker; run after every ingest
 ├── SCHEMA.md              # Authoritative content and integrity contract
 ├── index.md               # Complete active canonical catalog
@@ -143,8 +149,13 @@ gitignored `inbox/candidates-*.md`. Candidates are not
 evidence: the user adds chosen papers to the Zotero collection. Exit 1 means a
 Zotero or validation failure; `WARN` lines are candidate-search failures only.
 
-No build, test, CI, or checker exists for canonical pages. Validate the rest of
-the contract directly:
+Canonical pages have one executable checker: `python scripts/lint_canonical.py`
+(frontmatter fields and values, registered tags, type-directory fit, existing
+sources and `^[raw/...]` markers, two valid outbound links, broken links,
+orphans, the 200-line limit, and `index.md` entries, sections, order, and
+total). Run it after every canonical create, update, filed query, archive, or
+delete. There is no build, test, or CI. Validate the rest of the contract
+directly:
 
 - UTF-8, LF, no BOM, final newline, and correct leading frontmatter; documented
   byte-identical legacy raw imports may retain their original missing final LF.
