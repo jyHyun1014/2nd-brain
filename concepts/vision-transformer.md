@@ -1,10 +1,10 @@
 ---
 title: "Vision Transformer"
 created: "2026-10-21"
-updated: "2026-10-22"
+updated: "2026-10-30"
 type: "concept"
 tags: ["pretraining"]
-sources: ["raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md", "raw/papers/2026-10-recurrent-vision-transformers-for-event-based-spacecraft-pose-estimation-under-slow-relative-motions.md", "raw/papers/2026-10-the-explainability-illusion-must-vits-exhibit-patch-decoding-interpretability.md"]
+sources: ["raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md", "raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md", "raw/papers/2026-10-recurrent-vision-transformers-for-event-based-spacecraft-pose-estimation-under-slow-relative-motions.md", "raw/papers/2026-10-the-explainability-illusion-must-vits-exhibit-patch-decoding-interpretability.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -51,6 +51,12 @@ BERT의 마스크 언어 모델을 본떠 마스크된 패치를 예측하는 �
 예비 실험했다. ViT-B/16은 ImageNet 79.9%로 처음부터 학습한 경우보다 2% 좋지만
 지도 사전학습보다는 4% 낮다.^[raw/papers/2021-06-an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale.md]
 
+DINO는 이 방향을 이어받아 ViT를 라벨 없이 자기 증류로 학습한다. 라벨 없이 학습해도
+마지막 블록 attention에 의미적 분할 정보가 나타나고, 파인튜닝 없이 k-NN 분류만으로
+경쟁력 있는 성능을 낸다. 특히 k-NN이 linear 평가에 근접하는 성질은 DINO를 ViT에
+썼을 때만 나타난다.^[raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md]
+학습 방법과 결과는 [[self-supervised-vision-pretraining]]에 정리했다.
+
 ## 열린 질문
 
 논문은 detection·segmentation 같은 다른 비전 과제, 자기지도 사전학습 방법의
@@ -77,4 +83,5 @@ BERT의 마스크 언어 모델을 본떠 마스크된 패치를 예측하는 �
 - [[swin-transformer]] — 계층형 특징 맵과 이동 윈도우 attention으로 확장한 백본
 - [[transformer]] — ViT가 입력만 바꿔 재사용하는 원 구조
 - [[masked-language-modeling]] — 마스크된 패치 예측의 모델이 된 사전학습 목표
+- [[self-supervised-vision-pretraining]] — 라벨 없이 ViT를 학습하는 DINO 계열 접근
 - [[language-model-scaling]] — 규모에 따른 성능 향상이라는 대응 관찰

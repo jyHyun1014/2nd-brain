@@ -56,4 +56,6 @@ Asai 등의 논문 한 편에 근거하므로 `confidence: medium`이다.
 
 - [[retrieval-augmented-generation]] — Self-RAG가 개선하는 기본 RAG 구조
 - [[graph-rag]] — 검색 단위를 그래프 요약으로 바꾼 또 다른 RAG 변형
+- [[ragas]] — ISREL·ISSUP 비평이 겨냥하는 품질을 참조 없이 채점하는 평가 틀
+- [[marginal-viewpoint-utility]] — 고정 개수 문서를 붙이는 관행을 토큰 예산으로 대체하는 접근
 - [[reinforcement-learning-from-human-feedback]] — reflection token이 영감을 받았다고 밝힌 reward model 계열 기법

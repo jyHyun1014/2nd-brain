@@ -1,10 +1,10 @@
 ---
 title: "Chain-of-Thought Prompting"
 created: "2026-10-13"
-updated: "2026-10-22"
+updated: "2026-10-30"
 type: "concept"
 tags: ["llm", "prompting"]
-sources: ["raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md"]
+sources: ["raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md", "raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -41,6 +41,15 @@ Few-shot 프롬프트의 예시에 **최종 답만이 아니라 중간 추론 �
 
 모델 크기와 능력의 관계는 [[language-model-scaling]]에서 함께 다룬다.^[raw/papers/2023-01-chain-of-thought-prompting-elicits-reasoning-in-large-language-models.md]
 
+## 이후 발전: 행동과의 결합
+
+CoT 추론은 정적이라서 모델 내부 표현에만 의존하고 외부 세계에 grounded되지 않는다. 그래서
+사실 환각과 오류 전파가 생긴다. [[react]]는 CoT를 기준선으로 삼아, 추론 흔적에 환경을 바꾸는
+행동과 그 관측을 끼워 넣는다. HotpotQA에서 CoT의 최대 실패 유형은 환각(56%)이지만, ReAct는
+추론·행동·관측을 번갈아 넣는 구조 제약 때문에 환각은 0%가 되고 대신 추론 오류(47%)가 주된
+실패가 된다. 지식 집약 과제에서도 CoT(EM 29.4)보다 ReAct(EM 27.4)가 약간 낮은 대신, 둘을
+번갈아 쓰면 34~35까지 올라간다.^[raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md]
+
 ## 근거 수준
 
 이 방법 자체는 Wei 논문 한 편에 근거하므로 `confidence: medium`이다.
@@ -63,4 +72,5 @@ Few-shot 프롬프트의 예시에 **최종 답만이 아니라 중간 추론 �
 - [[language-model-scaling]] — 효과가 나타나는 모델 크기
 - [[fine-tuning-vs-in-context-learning]] — 프롬프트만으로 fine-tuning을 넘은 사례
 - [[self-consistency]] — 여러 추론 경로를 뽑아 다수결로 답을 고르는 후속 디코딩 방법
+- [[react]] — CoT에 행동·관측을 결합해 외부 자원에 grounded시키는 후속 패러다임
 - [[llm-based-agents]] — CoT를 에이전트 배포 방식으로 쓰는 맥락

@@ -1,10 +1,10 @@
 ---
 title: "LLM-based Agents"
 created: "2026-10-22"
-updated: "2026-10-22"
+updated: "2026-10-30"
 type: "concept"
 tags: ["llm"]
-sources: ["raw/papers/2023-09-the-rise-and-potential-of-large-language-model-based-agents-a-survey.md", "raw/papers/2025-10-agentbench-evaluating-llms-as-agents.md"]
+sources: ["raw/papers/2023-09-the-rise-and-potential-of-large-language-model-based-agents-a-survey.md", "raw/papers/2025-10-agentbench-evaluating-llms-as-agents.md", "raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md", "raw/papers/2024-06-chatdev-communicative-agents-for-software-development.md"]
 confidence: "medium"
 contested: false
 contradictions: []
@@ -48,6 +48,20 @@ AgentBench는 LLM의 추론·의사결정 능력을 상호작용 환경에서 �
   과제를 개선하고 다른 과제는 해치는 양날의 검이라고 분석한다.
 - 가장 강한 모델조차 실용적인 에이전트로는 부족하다고 결론짓는다.^[raw/papers/2025-10-agentbench-evaluating-llms-as-agents.md]
 
+## 행동과 추론의 결합: ReAct
+
+서베이의 Action 구성요소를 구체화한 사례가 [[react]]다. 에이전트의 행동 공간에 언어 공간을
+더해, 환경을 바꾸지 않는 thought와 환경을 바꾸는 action을 번갈아 생성하게 한다. thought는
+계획 수립과 예외 처리를, action은 외부 자원(위키백과 API, 가상 환경)에서 정보 획득을 맡는다.
+frozen PaLM-540B에 1~6개 예시만 줘서 HotpotQA·FEVER·ALFWorld·WebShop에서 추론만 하거나
+행동만 하는 기준선을 앞섰다.^[raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md]
+
+## 다중 에이전트 응용: 소프트웨어 개발
+
+서베이가 응용 범주로 나눈 다중 에이전트 협업의 대표 사례가 ChatDev다. 하나의 개발 과제를
+순차적 하위 과제로 쪼개고, 각 단계를 두 역할(임원, 실무자)의 대화로 처리한다. 세부 구조와
+성능은 [[multi-agent-software-development]]에 정리했다.^[raw/papers/2024-06-chatdev-communicative-agents-for-software-development.md]
+
 ## 두 원본의 관계
 
 서베이(2023-09)는 가능성과 구조를, AgentBench는 실제 모델 비교를 다룬다. 서베이의 낙관적
@@ -56,10 +70,13 @@ AgentBench는 LLM의 추론·의사결정 능력을 상호작용 환경에서 �
 
 ## 근거 수준
 
-서로 다른 측면을 다룬 두 원본이므로 `confidence: medium`이다.
+서로 다른 측면을 다룬 네 원본 가운데 서베이·AgentBench·ReAct·ChatDev는 각각 다른 질문에 답해
+모순이 없지만, ReAct와 ChatDev는 각각 단일 논문에 근거하므로 `confidence: medium`을 유지한다.
 
 ## 관련 개념
 
+- [[react]] — 행동·관측을 번갈아 생성해 추론과 행동을 결합하는 틀
+- [[multi-agent-software-development]] — 역할 분담 대화로 소프트웨어를 만드는 다중 에이전트 응용
 - [[chain-of-thought-prompting]] — AgentBench가 가장 쉽고 흔한 에이전트 배포 방식으로 든 CoT
 - [[llama-2]] — AgentBench가 평가한 오픈소스 모델 중 하나
 - [[sglang]] — 에이전트 제어를 워크로드로 시험한 다중 호출 실행 시스템

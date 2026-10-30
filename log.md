@@ -313,3 +313,51 @@ concepts/swin-transformer.md, entities/llama-2.md.
 `python scripts/validate_raw.py`: 0 failing record(s). All wikilinks in canonical pages resolve to
 active pages; index.md lists 18 pages and the filesystem holds 18; every page has at least two
 distinct outbound links and uses only registered tags.
+
+## [2026-10-23] ingest | Zotero collection 2nd-brain (5 records)
+
+Captured by `scripts/collect_evidence.py`: Zotero local API metadata plus the PDF
+attachment's `.zotero-ft-cache` text. `sha256` covers the exact post-frontmatter body.
+
+- raw/papers/2026-10-learning-marginal-viewpoint-utility-for-budgeted-evidence-selection-in-rag.md
+- raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md
+- raw/papers/2024-06-chatdev-communicative-agents-for-software-development.md
+- raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md
+- raw/papers/2025-04-ragas-automated-evaluation-of-retrieval-augmented-generation.md
+
+## [2026-10-23] lint | Raw paper records
+
+`python scripts/validate_raw.py`: 0 failing record(s).
+
+## [2026-10-30] ingest | Zotero collection 2nd-brain (5 records compiled)
+
+Compiled the 5 records captured on 2026-10-23 into canonical pages. Raw bodies unchanged.
+
+- raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md (DINO)
+- raw/papers/2023-03-react-synergizing-reasoning-and-acting-in-language-models.md (ReAct)
+- raw/papers/2024-06-chatdev-communicative-agents-for-software-development.md (ChatDev)
+- raw/papers/2025-04-ragas-automated-evaluation-of-retrieval-augmented-generation.md (RAGAS)
+- raw/papers/2026-10-learning-marginal-viewpoint-utility-for-budgeted-evidence-selection-in-rag.md (LMVU)
+
+## [2026-10-30] create | 5 canonical pages from 5 pending records
+
+- concepts/self-supervised-vision-pretraining.md (DINO: self-distillation, centering/sharpening, k-NN)
+- concepts/react.md (thought-action-observation loop; HotpotQA/FEVER/ALFWorld/WebShop)
+- concepts/multi-agent-software-development.md (ChatDev chat chain, dehallucination, dual agreement)
+- concepts/ragas.md (faithfulness, answer relevance, context relevance)
+- concepts/marginal-viewpoint-utility.md (token-budgeted evidence selection by marginal gain)
+
+## [2026-10-30] update | Cross-references for the 5 pending records
+
+- concepts/vision-transformer.md (DINO source, self-supervised pretraining link)
+- concepts/retrieval-augmented-generation.md (RAGAS, LMVU sources and sections)
+- concepts/llm-based-agents.md (ReAct, ChatDev sources and sections)
+- concepts/chain-of-thought-prompting.md (ReAct source, "reasoning + action" section)
+- concepts/self-rag.md (links to ragas, marginal-viewpoint-utility)
+- index.md (18 -> 23 active pages)
+
+## [2026-10-30] lint | Post-compile check
+
+`python scripts/lint_canonical.py`: 0 issues (23 pages, 96 valid outbound links, minimum 1 inbound).
+`python scripts/validate_raw.py`: 0 failing record(s); Zotero local API was unreachable so the
+title/DOI cross-check was skipped (WARN, not a failure).

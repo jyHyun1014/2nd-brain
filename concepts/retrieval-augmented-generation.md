@@ -1,10 +1,10 @@
 ---
 title: "Retrieval-Augmented Generation"
 created: "2026-10-13"
-updated: "2026-10-22"
+updated: "2026-10-30"
 type: "concept"
 tags: ["nlp", "retrieval"]
-sources: ["raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md", "raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md"]
+sources: ["raw/papers/2021-04-retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks.md", "raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md", "raw/papers/2025-04-ragas-automated-evaluation-of-retrieval-augmented-generation.md", "raw/papers/2026-10-learning-marginal-viewpoint-utility-for-budgeted-evidence-selection-in-rag.md"]
 confidence: "high"
 contested: false
 contradictions: []
@@ -77,10 +77,22 @@ noise robustness, negative rejection(근거가 없을 때 답을 삼가는 능�
 문서의 정보를 종합), counterfactual robustness(문서 속 알려진 오류를 무시하는 능력)를 든다.
 RAGAS, ARES, TruLens 같은 도구는 LLM으로 품질 점수를 매긴다.^[raw/papers/2024-03-retrieval-augmented-generation-for-large-language-models-a-survey.md]
 
+서베이가 이름만 든 무참조 평가 도구 가운데 RAGAS는 별도 논문으로 구체화되었다. 참조 정답 없이
+faithfulness, answer relevance, context relevance 세 지표를 LLM 심판으로 계산하고, 사람 평가와의
+상관으로 타당성을 점검한다. 지표 정의와 한계는 [[ragas]]에 정리했다.^[raw/papers/2025-04-ragas-automated-evaluation-of-retrieval-augmented-generation.md]
+
+## 검색 결과의 선별
+
+top-k로 문서 개수를 고정하는 관행은 문서 길이와 중복을 반영하지 못한다. LMVU는 후보 문서를 서로
+다른 관측 지점으로 보고, 이미 뽑힌 집합 대비 한계 효용을 추정해 토큰 예산 안에서 고른다. 문서
+절대 관련도가 아니라 집합 수준의 한계 기여를 본다는 점에서 reranking과 구분된다.^[raw/papers/2026-10-learning-marginal-viewpoint-utility-for-budgeted-evidence-selection-in-rag.md]
+방법과 한계는 [[marginal-viewpoint-utility]]에 정리했다.
+
 ## 근거 수준
 
 Lewis 논문(원 구조)과 2024년 서베이(이후 분류와 평가)가 서로 다른 시기와 측면을 다루며
-모순되지 않으므로 `confidence: high`로 올린다.
+모순되지 않아 핵심 구조는 `confidence: high`다. 다만 RAGAS와 LMVU는 각각 단일 논문에 근거하므로
+그 절의 주장은 `confidence: medium`으로 본다.
 
 ## 열린 질문
 
@@ -99,4 +111,7 @@ Lewis 논문(원 구조)과 2024년 서베이(이후 분류와 평가)가 서로
 - [[rag-vs-in-context-learning-knowledge-supply]] — GPT-3와 같은 QA 과제에서의 지식 공급 방식 비교
 - [[self-rag]] — 검색 필요성과 근거를 모델이 스스로 판단하는 변형
 - [[graph-rag]] — 지식 그래프와 커뮤니티 요약으로 전체 질문에 답하는 변형
+- [[ragas]] — 참조 정답 없이 RAG 품질을 채점하는 평가 프레임워크
+- [[marginal-viewpoint-utility]] — 토큰 예산 아래 문서를 고르는 한계 효용 기준
+- [[react]] — 위키백과 API를 검색 도구로 쓰는 추론-행동 결합 방식
 - [[sglang]] — RAG 파이프라인을 포함한 다중 호출 워크로드의 실행 시스템
