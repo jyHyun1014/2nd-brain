@@ -361,3 +361,8 @@ Compiled the 5 records captured on 2026-10-23 into canonical pages. Raw bodies u
 `python scripts/lint_canonical.py`: 0 issues (23 pages, 96 valid outbound links, minimum 1 inbound).
 `python scripts/validate_raw.py`: 0 failing record(s); Zotero local API was unreachable so the
 title/DOI cross-check was skipped (WARN, not a failure).
+
+## [2026-10-30] repair | DINO page claims checked against raw
+- concepts/self-supervised-vision-pretraining.md: removed image counts absent from the source; corrected Table 10 comparison (DINO ViT-S vs DINO ResNet-50, not supervised ViT-S).
+- Reviewed concepts/react.md numbers against raw; no changes needed.
+

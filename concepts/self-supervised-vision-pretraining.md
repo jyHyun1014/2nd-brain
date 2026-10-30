@@ -53,10 +53,10 @@ student 네트워크가 momentum encoder로 만든 teacher 네트워크의 출�
   쓸 때만 나타나고 다른 자기지도 방법이나 ResNet-50에서는 나타나지 않는다.
 - 학습 비용도 보고한다. ViT-S/16 DINO는 8-GPU 서버 두 대로 3일 동안 학습해 ImageNet linear
   76.1%를 냈다. ViT-Base/8은 linear 80.1% top-1을 냈다.
-- **적은 라벨로의 전이:** 라벨이 10%뿐일 때(전체 1,281,167장 중 128,116장) ImageNet로 사전학습한
-  DINO ViT-S/16 특징은 동결 상태에서 k-NN 69.1%, linear 72.2%를 낸다. 1% 라벨에서는 k-NN 61.3%,
-  linear 64.5%다. 다만 이 동결 선형 평가는 Places205·VOC07에서는 라벨 지도 학습 ViT-S/16보다
-  오히려 낮아, 우위가 도메인에 따라 갈린다.^[raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md]
+- **적은 라벨로의 전이:** ImageNet 라벨이 10%뿐일 때 DINO ViT-S/16 특징은 동결 상태에서 k-NN 69.1%,
+  linear 72.2%를 낸다. 1% 라벨에서는 k-NN 61.3%, linear 64.5%다. 같은 DINO로 학습한 ResNet-50과
+  비교하면 ViT-S가 대부분 앞서고 특히 k-NN에서 격차가 크지만, Places205 linear 평가에서는 ViT-S가
+  조금 낮아 우위가 도메인에 따라 갈린다.^[raw/papers/2021-05-emerging-properties-in-self-supervised-vision-transformers.md]
 
 ## 파생 능력
 
