@@ -12,19 +12,34 @@ This project goes beyond simply storing notes. It is designed around a continuou
 
 The [complete architecture](docs/architecture/second-brain-pkm-architecture.md) consists of four layers: **Evidence → Canonical Memory → Discovery → Human Decision**. Original content and metadata are preserved as immutable evidence, while only reusable knowledge is compiled into canonical Markdown with traceable sources. Relationships discovered through NotebookLM and the knowledge graph remain hypotheses until human verification promotes them into durable memory.
 
-![Evidence-based personal knowledge management architecture for the 2nd Brain](docs/architecture/second-brain-pkm-architecture.png)
+![Evidence-based personal knowledge management architecture for the 2nd Brain](docs/architecture/second-brain-pkm-architecture-current.png)
 
 ### Operating Workflow
 
-The [operating workflow](docs/architecture/second-brain-pkm-architecture.md#6-핵심-워크플로우) follows **Capture → Compile → Discovery → Human Decision**. Each stage must pass integrity, frontmatter, and structural validation gates before moving forward. Approved changes update the canonical documents, index, and log together, then feed back into the knowledge graph and reusable outputs.
+The [operating workflow](docs/architecture/second-brain-pkm-architecture.md#6-핵심-워크플로우) follows **Capture → Gate A: collect → Gate B: compile → Review → Human decision → Second Brain**. Each gate runs its validator (`validate_raw.py`, `lint_canonical.py`) and a check of every claim against `raw/`; nothing reaches `main` without the user's approval. NotebookLM and the knowledge graph feed new candidates back into the same review as hypotheses.
 
-![2nd-Brain Evidence to Reusable Knowledge operating workflow](docs/workflow/second-brain-workflow.png)
+![2nd-Brain Evidence to Reusable Knowledge operating workflow](docs/workflow/second-brain-workflow-current.png)
 
 ### Technology Stack
 
-The core assets in the [technology stack](docs/architecture/second-brain-pkm-architecture.md#5-기술-스택) are not particular products, but **open-format source material, canonical Markdown, provenance metadata, and Git history**. Obsidian, Zotero, NotebookLM, and Understand Anything are replaceable tools for capture, editing, discovery, and analysis. Integrity checks and human approval gates connect the stack.
+The core assets in the [technology stack](docs/architecture/second-brain-pkm-architecture.md#5-기술-스택) are not particular products, but **open-format source material, canonical Markdown, provenance metadata, and Git history**. Zotero, Hermes Agent with `llm-wiki`, Obsidian, NotebookLM, Understand Anything, and Claude Code are replaceable tools for capture, compilation, editing, discovery, and review. Integrity checks and human approval gates connect the stack.
 
-![2nd-Brain Durable Knowledge technology stack](docs/tech-stack/second-brain-technology-stack.png)
+![2nd-Brain Durable Knowledge technology stack](docs/tech-stack/second-brain-technology-stack-current.png)
+
+### Current Implementation
+
+The diagrams above show the current system; the [architecture document](docs/architecture/second-brain-pkm-architecture.md) also covers planned parts. This is what runs today (status as of 2026-11-01: 25 raw paper records, 23 canonical pages).
+
+| Time / trigger | Step | What runs | Output |
+| --- | --- | --- | --- |
+| Manual | Capture | The user adds a paper to the Zotero `2nd-brain` collection | Zotero item |
+| Daily 10:00 (Hermes cron, script only) | Gate A: collect | `scripts/collect_evidence.py` captures new items into `raw/papers/`, runs `scripts/validate_raw.py`, and writes paper candidates to `inbox/` | Raw records, `ingest`/`lint` log entries |
+| Daily 11:00 (Hermes cron, agent with `llm-wiki`) | Gate B: compile | The agent follows `scripts/compile_wiki_prompt.md`: compiles pending records on a `wiki/compile-<date>` branch, self-checks every number and comparison against the raw text, and runs `scripts/lint_canonical.py` | Branch awaiting review |
+| On request ("검토해줘") | Review | A coding agent (Claude Code) follows `scripts/review_compile_prompt.md`: re-checks every claim against `raw/`, fixes errors, and writes a plain-language report with an approve/reject recommendation | Report, `repair` log entry |
+| Human decision | Human-in-the-Loop | The user approves or rejects; only then is the branch merged and pushed, or discarded | Updated `main` |
+| Manual | Discovery | NotebookLM notebook over the raw records; Understand Anything graph built from canonical pages into `.ua/` | Hypotheses only, verified against `raw/` before any wiki change |
+
+Hermes runs locally with an OpenAI-compatible model provider configured in Hermes itself; API keys live only in the Hermes data directory, never in this repository. Not yet automated: graph regeneration and the review step.
 
 ## Key 2nd-Brain Features
 
@@ -33,11 +48,11 @@ The system connects safe source preservation and verified knowledge reuse in one
 | Feature | Description |
 | --- | --- |
 | **Source and provenance preservation** | Capture papers and web material with Zotero and Web Clipper, then preserve the source, metadata, and SHA-256 digest under `raw/` so every claim can be traced back to evidence. |
-| **Verified knowledge compilation** | [LLM Wiki](concepts/llm-wiki.md) structures source material into concept, comparison, and query documents while accumulating provenance, confidence, contradictions, and relationships. |
-| **Connected exploration and editing** | Follow the [second-brain research workflow](concepts/second-brain-research-workflow.md) to read and edit durable knowledge in Obsidian using Markdown, wikilinks, and backlinks. |
-| **Source-grounded focused research** | Use the [NotebookLM query compounding workflow](queries/notebooklm-query-compounding.md) to question a constrained source set and file only results whose reuse value has been verified. |
-| **Knowledge graph analysis** | Use the [UA knowledge graph workflow](queries/ua-knowledge-graph-workflow.md) to find clusters, bridges, isolated documents, and possible knowledge gaps, then verify graph results against the source material. |
-| **Human verification and feedback** | The [research feedback loop](concepts/research-feedback-loop.md) classifies discoveries as accepted, contested, deferred, or rejected and feeds only approved knowledge back into the index and change history. |
+| **Verified knowledge compilation** | LLM Wiki structures source material into concept, comparison, and query documents while accumulating provenance, confidence, contradictions, and relationships. |
+| **Connected exploration and editing** | Follow the second-brain research workflow to read and edit durable knowledge in Obsidian using Markdown, wikilinks, and backlinks. |
+| **Source-grounded focused research** | Use the NotebookLM query compounding workflow to question a constrained source set and file only results whose reuse value has been verified. |
+| **Knowledge graph analysis** | Use the UA knowledge graph workflow to find clusters, bridges, isolated documents, and possible knowledge gaps, then verify graph results against the source material. |
+| **Human verification and feedback** | The research feedback loop classifies discoveries as accepted, contested, deferred, or rejected and feeds only approved knowledge back into the index and change history. |
 
 ## Prerequisites
 

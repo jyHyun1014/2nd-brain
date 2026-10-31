@@ -6,6 +6,12 @@
 
 이 문서는 개인 지식관리 시스템의 아키텍처, 기술 스택, 운영 워크플로우를 정의한다. 핵심 목표는 자료를 많이 저장하는 것이 아니라, **원본으로 돌아갈 수 있고, 검증된 지식을 반복해서 재사용하며, 도구가 바뀌어도 핵심 자산이 남는 2nd-Brain**을 만드는 것이다.
 
+> **구현 현황 (2026-11-01)**
+>
+> - 구현됨: Zotero → `raw/papers/` 수집(Hermes cron 10:00, `scripts/collect_evidence.py`), `llm-wiki` 컴파일(Hermes cron 11:00, `scripts/compile_wiki_prompt.md`, 원본 자기 검증 포함), 원본·정식 문서 검사기(`scripts/validate_raw.py`, `scripts/lint_canonical.py`), Claude Code 검토 후 사람이 승인하는 관문(`scripts/review_compile_prompt.md`), NotebookLM 원본 노트북, UA 지식그래프(수동 생성).
+> - 아직 설계 단계: Hermes에 의한 UA 그래프 자동 생성(7장), 웹·브라우저 자동 수집, 검토 단계의 예약 실행.
+> - 7장의 Cron 설계와 실제 설정이 다를 때는 `AGENTS.md`와 `scripts/`의 현재 계약을 따른다.
+
 ## 1. 아키텍처 결정 요약
 
 이 시스템은 하나의 앱에 모든 책임을 맡기지 않는다. 데이터의 신뢰 수준과 수명을 기준으로 다음 네 계층을 분리한다.

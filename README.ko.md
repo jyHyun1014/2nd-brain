@@ -12,19 +12,34 @@
 
 [전체 아키텍처](docs/architecture/second-brain-pkm-architecture.md)는 **Evidence → Canonical Memory → Discovery → Human Decision**의 네 계층으로 구성됩니다. 원본과 메타데이터는 불변 evidence로 보존하고, 반복해서 사용할 지식만 출처와 함께 canonical Markdown으로 컴파일합니다. NotebookLM과 지식그래프에서 발견한 관계는 가설로 취급하며, 사람의 검증을 통과한 내용만 장기 기억으로 승격합니다.
 
-![2nd-Brain 증거 기반 개인 지식관리 아키텍처](docs/architecture/second-brain-pkm-architecture.png)
+![2nd-Brain 증거 기반 개인 지식관리 아키텍처](docs/architecture/second-brain-pkm-architecture-current.png)
 
 ### 운영 워크플로
 
-[운영 워크플로](docs/architecture/second-brain-pkm-architecture.md#6-핵심-워크플로우)는 **Capture → Compile → Discovery → Human Decision** 순서로 진행됩니다. 각 단계의 무결성·frontmatter·구조 검증 관문을 통과해야 다음 단계로 이동하며, 승인된 변경은 canonical 문서·index·log를 함께 갱신한 뒤 지식그래프와 재사용 산출물로 환류됩니다.
+[운영 워크플로](docs/architecture/second-brain-pkm-architecture.md#6-핵심-워크플로우)는 **수집 → Gate A: 수집 검증 → Gate B: 컴파일 → 검토 → 사람의 결정 → Second Brain** 순서로 진행됩니다. 각 관문은 검사기(`validate_raw.py`, `lint_canonical.py`)와 모든 주장의 `raw/` 대조를 거치며, 사용자가 승인하지 않으면 어떤 변경도 `main`에 들어가지 않습니다. NotebookLM과 지식그래프에서 나온 새 후보는 가설로서 같은 검토 단계로 들어갑니다.
 
-![2nd-Brain Evidence to Reusable Knowledge 운영 워크플로](docs/workflow/second-brain-workflow.png)
+![2nd-Brain Evidence to Reusable Knowledge 운영 워크플로](docs/workflow/second-brain-workflow-current.png)
 
 ### 기술 스택
 
-[기술 스택](docs/architecture/second-brain-pkm-architecture.md#5-기술-스택)의 핵심 자산은 특정 제품이 아니라 **공개 형식의 원본, canonical Markdown, 출처 메타데이터와 Git 이력**입니다. Obsidian·Zotero·NotebookLM·Understand Anything은 수집, 편집, 탐색과 분석을 담당하는 교체 가능한 도구이며, 무결성 검사와 사람의 승인 관문이 전체 스택을 연결합니다.
+[기술 스택](docs/architecture/second-brain-pkm-architecture.md#5-기술-스택)의 핵심 자산은 특정 제품이 아니라 **공개 형식의 원본, canonical Markdown, 출처 메타데이터와 Git 이력**입니다. Zotero·Hermes Agent(`llm-wiki`)·Obsidian·NotebookLM·Understand Anything·Claude Code는 수집, 컴파일, 편집, 탐색과 검토를 담당하는 교체 가능한 도구이며, 무결성 검사와 사람의 승인 관문이 전체 스택을 연결합니다.
 
-![2nd-Brain Durable Knowledge 기술 스택](docs/tech-stack/second-brain-technology-stack.png)
+![2nd-Brain Durable Knowledge 기술 스택](docs/tech-stack/second-brain-technology-stack-current.png)
+
+### 현재 구현 상태
+
+위 그림들은 현재 시스템을 나타내며, 계획 중인 부분까지는 [아키텍처 문서](docs/architecture/second-brain-pkm-architecture.md)에 있습니다. 실제로 지금 동작하는 흐름은 다음과 같습니다(2026-11-01 기준: 논문 원본 25편, 정식 페이지 23개).
+
+| 시점 / 계기 | 단계 | 실행 내용 | 결과 |
+| --- | --- | --- | --- |
+| 수동 | 수집 | 사용자가 Zotero `2nd-brain` 컬렉션에 논문을 추가 | Zotero 항목 |
+| 매일 10:00 (Hermes cron, 스크립트 전용) | Gate A: 수집 | `scripts/collect_evidence.py`가 새 항목을 `raw/papers/`에 저장하고 `scripts/validate_raw.py`로 검증하며, 논문 후보를 `inbox/`에 기록 | 원본 레코드, `ingest`/`lint` 로그 |
+| 매일 11:00 (Hermes cron, `llm-wiki` 에이전트) | Gate B: 컴파일 | 에이전트가 `scripts/compile_wiki_prompt.md`를 따라 `wiki/compile-<날짜>` 브랜치에서 정리하고, 모든 숫자·비교를 원본과 자기 검증한 뒤 `scripts/lint_canonical.py` 실행 | 검토 대기 브랜치 |
+| 요청 시 ("검토해줘") | 검토 | 코딩 에이전트(Claude Code)가 `scripts/review_compile_prompt.md`를 따라 모든 주장을 `raw/`와 재대조·수정하고, 승인/반려 권고가 담긴 쉬운 보고서 작성 | 보고서, `repair` 로그 |
+| 사람의 결정 | Human-in-the-Loop | 사용자가 승인 또는 반려. 승인 시에만 main에 합치고 push, 반려 시 브랜치 폐기 | 갱신된 `main` |
+| 수동 | 탐색 | 원본 레코드로 구성한 NotebookLM 노트북, 정식 페이지로 만든 Understand Anything 그래프(`.ua/`) | 가설일 뿐이며, 위키 반영 전 `raw/`로 검증 |
+
+Hermes는 로컬에서 실행되며 모델 제공자(OpenAI 호환)는 Hermes 자체 설정에 있습니다. API 키는 Hermes 데이터 폴더에만 두고 이 저장소에는 절대 넣지 않습니다. 아직 자동화하지 않은 것: 그래프 재생성, 검토 단계.
 
 ## 2nd-Brain 주요 기능
 
@@ -33,11 +48,11 @@
 | 주요 기능 | 설명 |
 | --- | --- |
 | **원본·출처 보존** | Zotero와 Web Clipper로 논문·웹 자료를 수집하고, `raw/`에 원본·메타데이터·SHA-256을 보존해 언제든 근거로 돌아갑니다. |
-| **검증된 지식 컴파일** | [LLM Wiki](concepts/llm-wiki.md)가 원본을 개념·비교·질의 문서로 구조화하고 출처, 신뢰도, 모순과 연결 관계를 누적합니다. |
-| **연결형 탐색과 편집** | [세컨드 브레인 연구 워크플로](concepts/second-brain-research-workflow.md)에 따라 Obsidian에서 Markdown, 위키링크와 역링크로 장기 지식을 읽고 편집합니다. |
-| **출처 기반 집중 연구** | [NotebookLM 질의 증분 워크플로](queries/notebooklm-query-compounding.md)로 제한된 소스를 질의하고, 재사용 가치가 검증된 결과만 정식 질의 문서에 편입합니다. |
-| **지식그래프 분석** | [UA 지식그래프 워크플로](queries/ua-knowledge-graph-workflow.md)로 군집·브리지·고립 문서와 지식 공백 후보를 찾고 그래프 결과를 원문으로 재검증합니다. |
-| **사람 검증과 피드백** | [연구 피드백 루프](concepts/research-feedback-loop.md)가 탐색 결과를 수용·논쟁·보류·기각으로 판정하고, 승인된 지식만 인덱스와 변경 기록에 환류합니다. |
+| **검증된 지식 컴파일** | LLM Wiki가 원본을 개념·비교·질의 문서로 구조화하고 출처, 신뢰도, 모순과 연결 관계를 누적합니다. |
+| **연결형 탐색과 편집** | 세컨드 브레인 연구 워크플로에 따라 Obsidian에서 Markdown, 위키링크와 역링크로 장기 지식을 읽고 편집합니다. |
+| **출처 기반 집중 연구** | NotebookLM 질의 증분 워크플로로 제한된 소스를 질의하고, 재사용 가치가 검증된 결과만 정식 질의 문서에 편입합니다. |
+| **지식그래프 분석** | UA 지식그래프 워크플로로 군집·브리지·고립 문서와 지식 공백 후보를 찾고 그래프 결과를 원문으로 재검증합니다. |
+| **사람 검증과 피드백** | 연구 피드백 루프가 탐색 결과를 수용·논쟁·보류·기각으로 판정하고, 승인된 지식만 인덱스와 변경 기록에 환류합니다. |
 
 ## 사전 설치
 

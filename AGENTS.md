@@ -10,11 +10,17 @@
 - The repository root is the wiki root; no database, service, or build system exists.
 - `SCHEMA.md` is the operational contract. `README.md` covers optional tool setup
   but describes a generic PARA layout that is not the current repository structure.
-- Current curated state: 20 raw paper records (local only) and 18 canonical pages.
+- Current curated state: 25 raw paper records (local only) and 23 canonical pages.
 - Daily automation (Hermes cron, this machine): `collect-evidence` at 10:00
   (script-only, Gate A) and `compile-wiki` at 11:00 (agent with `llm-wiki`,
-  Gate B, commits to a `wiki/compile-<date>` branch that a human reviews and
-  merges). The UA knowledge graph (`.ua/`) is still generated manually.
+  Gate B, commits to a `wiki/compile-<date>` branch).
+- Human-in-the-Loop: a coding agent reviews each compile branch with
+  `scripts/review_compile_prompt.md` and reports; the branch is merged and
+  pushed, or discarded, only after the user approves or rejects. Never merge
+  AI-generated knowledge without that decision.
+- Discovery is manual: the NotebookLM notebook holds the raw records, and the
+  UA knowledge graph (`.ua/`) is built from canonical pages. Both produce
+  hypotheses, never evidence.
 
 ## START HERE
 
@@ -50,6 +56,7 @@
 │   ├── collect_config.json  # Collection name, search keywords, candidate limits
 │   ├── compile_wiki_prompt.md  # Gate B task the compile-wiki cron agent follows
 │   ├── lint_canonical.py  # Canonical-page and index.md checker
+│   ├── review_compile_prompt.md  # HITL review procedure for compile branches
 │   └── validate_raw.py    # Raw-record integrity checker; run after every ingest
 ├── SCHEMA.md              # Authoritative content and integrity contract
 ├── index.md               # Complete active canonical catalog
