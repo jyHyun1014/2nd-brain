@@ -37,10 +37,16 @@ in `sources` and no `log.md` heading of the form
    - If a record cannot support a well-linked page yet, do not force one: append
      `## [today] lint | Compile deferred: <n> raw records` to `log.md` listing
      each path and why.
-4. Keep `index.md` alphabetical, type-correct, and its total equal to the
+4. Self-check every page you created or changed against its raw records before
+   linting. For each number, table cell, named comparison ("X beats Y"), and
+   dataset or model name, find the supporting text in the cited raw record.
+   Check what a table actually compares (column and row headers), not only that
+   the number appears. Fix or delete any claim you cannot locate; never keep a
+   value (counts, dates, totals) that the raw text does not state.
+5. Keep `index.md` alphabetical, type-correct, and its total equal to the
    canonical file count. Append one `log.md` entry (`create` or `update`) that
    lists every affected path.
-5. Run `python scripts/lint_canonical.py` and fix every issue until it prints
+6. Run `python scripts/lint_canonical.py` and fix every issue until it prints
    `0 issues`; also review what it cannot check (claims supported by the raw text,
    no synonyms, sensible links). Then run `python scripts/validate_raw.py` again.
    Write the lint result into `log.md` only after running it.
